@@ -1,4 +1,106 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.0'
 }
 
+sourceCompatibility = JavaVersion.VERSION_1_6
+targetCompatibility = JavaVersion.VERSION_1_6
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.eclipse.jetty:jetty-servlet:8.1.16.v20140903'
+    compile 'args4j:args4j:2.0.29'
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.3.6'
+    testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+    testCompile 'com.github.stefanbirkner:system-rules:1.7.0'
+    testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+    testRuntime 'cglib:cglib-nodep:3.1'
+    testRuntime 'org.objenesis:objenesis:2.1'
+}
+
+processResources {
+    filter(org.apache.tools.ant.filters.ReplaceTokens, tokens: ['version': project.version])
+}
+
+/*
+ * Tasks and settings for publishing to Bintray
+ */
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from "${buildDir}/docs/javadoc"
+    classifier = 'javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': 'org.hidetake.httpserver.Main'
+    }
+    classifier = ''
+    version = ''
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom.withXml {
+                asNode().children().last() + {
+                    resolveStrategy = DELEGATE_FIRST
+                    name project.name
+                    description project.description
+                    url project.property('pom.url')
+                    scm {
+                        url project.property('pom.scm.url')
+                        connection project.property('pom.scm.connection')
+                    }
+                    licenses {
+                        license {
+                            name project.property('pom.license.name')
+                            url project.property('pom.license.url')
+                            distribution 'repo'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id project.property('pom.developer.id')
+                            name project.property('pom.developer.name')
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER') ?: project.properties.bintrayUser
+    key  = System.getenv('BINTRAY_KEY')  ?: project.properties.bintrayKey
+    publications = ['maven']
+    pkg {
+        repo = 'maven'
+        name = project.name
+    }
+}
+
+tasks.bintrayUpload.doFirst {
+    assert !project.version.contains('SNAPSHOT')
+}
+
+task install(dependsOn: 'publishMavenPublicationToMavenLocal')
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2.1'
+}
