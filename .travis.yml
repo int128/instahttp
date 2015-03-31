@@ -7,9 +7,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: nAfuGXgFwlJG2AZ4aoKbfCefXmMmjnKt8WlJ9CFChdeL3gExhmNAgrCNPJacyAqbG4iNmDCzniTK10A7KqznnDxOTKANuGLDHAgeakKJCtjZCxWswLWxrcaqDG8qfYGIa4+lfNJTXcokrOa4IMbtY/DCgTDd6bGtk/0vGmm+/Pg=
-  skip_cleanup: true
-  file_glob: true
+    secure: bURUcmVeUfQ7mTNuuT2nA7+XHpC+41znx+tnEo+i4twuJ9WozmZko4dOg7JS8ukpyV45+RpmJ6LB67NL8Qi+rlTHY/BZUReey+WmrOWYDMkhhy2Yy1XnnQFS0py9yjw5kYgdmHf33NF3o9MctAdoVHJpdAYbqNGxAZ9hWNxLfFY=
   file: build/libs/instahttp.jar
   on:
     tags: true
@@ -18,5 +16,5 @@ deploy:
 env:
   global:
   - TERM=dumb
-  - secure: "N1tRJ4AFard0bFptQbcVPEDGRaXEuFbZm268BUHoHqTDDc9p8J17wa3EPbeDeL0l8sau07xPwJdIysLOFP3+dbaLc1Jz8VAacalzHyabibdHU/VslJwHiutY9Cin5DM7QJ60XWIY3mJNZOlQJEyL5nJS68BqeaJwNwC2kCbrWiM="
-  - secure: "PG51TILjtl6Hv3OJRozeCjAlinBOOul+HxiTgIqD1W9KUd2NN3onbDgIuumxcgAiohGceFMZ9oQQrx3x1bjGti4sMEvPLwXqyU9UpG9SXb/vrfLSsRy8pnEGieOnv+D9vFCOBKP5dxwqGSFEblyLNxFsVirZvLkeNGQ4cPz12Bs="
+  - secure: N1tRJ4AFard0bFptQbcVPEDGRaXEuFbZm268BUHoHqTDDc9p8J17wa3EPbeDeL0l8sau07xPwJdIysLOFP3+dbaLc1Jz8VAacalzHyabibdHU/VslJwHiutY9Cin5DM7QJ60XWIY3mJNZOlQJEyL5nJS68BqeaJwNwC2kCbrWiM=
+  - secure: PG51TILjtl6Hv3OJRozeCjAlinBOOul+HxiTgIqD1W9KUd2NN3onbDgIuumxcgAiohGceFMZ9oQQrx3x1bjGti4sMEvPLwXqyU9UpG9SXb/vrfLSsRy8pnEGieOnv+D9vFCOBKP5dxwqGSFEblyLNxFsVirZvLkeNGQ4cPz12Bs=
