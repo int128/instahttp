@@ -18,3 +18,5 @@ deploy:
 env:
   global:
   - TERM=dumb
+  - secure: "N1tRJ4AFard0bFptQbcVPEDGRaXEuFbZm268BUHoHqTDDc9p8J17wa3EPbeDeL0l8sau07xPwJdIysLOFP3+dbaLc1Jz8VAacalzHyabibdHU/VslJwHiutY9Cin5DM7QJ60XWIY3mJNZOlQJEyL5nJS68BqeaJwNwC2kCbrWiM="
+  - secure: "PG51TILjtl6Hv3OJRozeCjAlinBOOul+HxiTgIqD1W9KUd2NN3onbDgIuumxcgAiohGceFMZ9oQQrx3x1bjGti4sMEvPLwXqyU9UpG9SXb/vrfLSsRy8pnEGieOnv+D9vFCOBKP5dxwqGSFEblyLNxFsVirZvLkeNGQ4cPz12Bs="
